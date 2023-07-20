@@ -3,12 +3,12 @@ package org.spring.ajaxpj.dto;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.spring.ajaxpj.entity.BoardEnity;
+import org.spring.ajaxpj.entity.MemberEntity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Getter
@@ -27,6 +27,30 @@ public class MemberDto {
 
   private LocalDateTime updateTime;//수정일
 
+  private List<BoardEnity> boardEnityList;
   //  Entity -> Dto
+
+  public static MemberDto toMemberDto(MemberEntity memberEntity){
+    MemberDto memberDto=new MemberDto();
+    memberDto.setId(memberEntity.getId());
+    memberDto.setName(memberEntity.getName());
+    memberDto.setEmail(memberEntity.getEmail());
+    memberDto.setCreateTime(memberEntity.getCreateTime());
+    return memberDto;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

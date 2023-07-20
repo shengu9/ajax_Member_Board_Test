@@ -7,6 +7,10 @@ import org.spring.ajaxpj.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @SpringBootTest
 public class MemberTest {
 
@@ -73,5 +77,62 @@ public class MemberTest {
 
   }
 
+  @Test
+  void findById() {
+    MemberDto memberDto = new MemberDto();
+
+    memberDto.setId(1L);
+    Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(memberDto.getId());
+
+    if (!optionalMemberEntity.isPresent()) {
+      System.out.println("조회할 회원이 없다.");
+    } else {
+      System.out.println("조회할 회원");
+      MemberEntity memberEntity
+              = optionalMemberEntity.get();
+      //  Entity -> Dto
+      MemberDto memberDto1 = MemberDto.toMemberDto(memberEntity);
+
+      System.out.println("id-> " + memberDto1.getId());
+      System.out.println("name-> " + memberDto1.getName());
+      System.out.println("email-> " + memberDto1.getEmail());
+      System.out.println("date-> " + memberDto1.getCreateTime());
+    }
+  }
+
+  @Test
+  void findAll(){
+    List<MemberDto> memberDtoList=new ArrayList<>();
+    List<MemberEntity> memberEntityList= memberRepository.findAll();
+    if(!memberEntityList.isEmpty()){
+      // 조회할 목록 O
+      for (MemberEntity memberEntity : memberEntityList) {
+        // Entity -> Dto  하나씩    memberDtoList.add()
+        MemberDto memberDto = MemberDto.toMemberDto(memberEntity);
+        memberDtoList.add(memberDto);
+      }
+    }else{
+      // 조회할 목록 X
+    }
+    for(MemberDto memberDto:memberDtoList){
+      System.out.print("id-> " + memberDto.getId());
+      System.out.print(" name-> " + memberDto.getName());
+      System.out.print(" email-> " + memberDto.getEmail());
+      System.out.println("date-> " + memberDto.getCreateTime());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
 
 }
