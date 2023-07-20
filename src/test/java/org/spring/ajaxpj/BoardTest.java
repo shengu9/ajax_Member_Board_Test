@@ -22,12 +22,12 @@ public class BoardTest {
   @Test
   void insert(){
     BoardDto boardDto=new BoardDto();
-    boardDto.setTilte("제목2");
-    boardDto.setContent("내용2");
-    boardDto.setWriter("글쓴이2");
+    boardDto.setTilte("제목23");
+    boardDto.setContent("내용23");
+    boardDto.setWriter("글쓴이23");
 
     MemberDto memberDto=new MemberDto();
-    memberDto.setId(2L);
+    memberDto.setId(3L);
     MemberEntity memberEntity
             = MemberEntity.toMemberEntityDelete(memberDto);
     boardDto.setMemberEntity(memberEntity);  // member_id
@@ -39,26 +39,62 @@ public class BoardTest {
 
   @Test
   void findAll(){
-//
-//    List<BoardDto> memberDtoList=new ArrayList<>();
-//    List<BoardEnity> boardEnityList= boardRepository.findAll();
-//    if(!boardEnityList.isEmpty()){
-//      // 조회할 목록 O
-//      for (BoardEnity boardEnity : boardEnityList) {
-//        BoardDto BoardDto = BoardDto
-//
-//        memberDtoList.add(BoardDto);
-//      }
-//    }else{
-//      // 조회할 목록 X
-//    }
-//    for(MemberDto memberDto:memberDtoList){
-//      System.out.print("id-> " + memberDto.getId());
-//      System.out.print(" name-> " + memberDto.getName());
-//      System.out.print(" email-> " + memberDto.getEmail());
-//      System.out.println("date-> " + memberDto.getCreateTime());
-//    }
+
+    List<BoardDto> boardDtoList=new ArrayList<>();
+    List<BoardEnity> boardEnityList= boardRepository.findAll();
+
+    if(!boardEnityList.isEmpty()){
+      // 조회할 목록 O
+      for (BoardEnity boardEnity : boardEnityList) {
+        BoardDto boardDto =BoardDto.toBoardDtoList(boardEnity);
+        boardDtoList.add(boardDto);
+      }
+    }else{
+      // 조회할 목록 X
+    }
+    for(BoardDto boardDto:boardDtoList){
+      System.out.print("글번호-> " + boardDto.getId());
+      System.out.print(" 제목-> " + boardDto.getTilte());
+      System.out.print(" 내용-> " + boardDto.getContent());
+      System.out.print(" 작성자-> " + boardDto.getWriter());
+      System.out.println(" member_id-> " + boardDto.getMemberEntity().getId());
+    }
   }
+
+
+  @Test
+  void boardIdList(){
+
+    List<BoardDto> boardDtoList=new ArrayList<>();
+
+    List<BoardEnity> boardEnityList
+            = boardRepository.findByIdList(3L);
+
+    if(!boardEnityList.isEmpty()){
+      // 조회할 목록 O
+      for (BoardEnity boardEnity : boardEnityList) {
+        BoardDto boardDto =BoardDto.toBoardDtoList(boardEnity);
+        boardDtoList.add(boardDto);
+      }
+    }else{
+      // 조회할 목록 X
+    }
+    for(BoardDto boardDto:boardDtoList){
+      System.out.print("글번호-> " + boardDto.getId());
+      System.out.print(" 제목-> " + boardDto.getTilte());
+      System.out.print(" 내용-> " + boardDto.getContent());
+      System.out.print(" 작성자-> " + boardDto.getWriter());
+      System.out.println(" member_id-> " + boardDto.getMemberEntity().getId());
+    }
+  }
+
+
+
+
+
+
+
+
 
 
 
