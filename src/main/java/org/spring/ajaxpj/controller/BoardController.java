@@ -37,8 +37,7 @@ public class BoardController {
   }
 
   @GetMapping("/serach")
-  public String serach(@RequestParam("content") String content,
-          ,Model model){
+  public String serach(@RequestParam("content") String content  ,Model model){
 
     List<BoardDto> boardList=boardService.boardSearch(content);
 
