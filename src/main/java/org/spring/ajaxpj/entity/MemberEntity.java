@@ -70,12 +70,4 @@ public class MemberEntity { // member_entity
 
 
 
-
-
-
-
-
-
-
-
 }

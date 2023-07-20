@@ -88,6 +88,32 @@ public class BoardTest {
     }
   }
 
+  @Test
+  void boardContain(){
+    List<BoardDto> boardDtoList=new ArrayList<>();
+                   // board_content
+    List<BoardEnity> boardEnityList
+            =boardRepository.findByContentContaining("내용");
+
+    if(!boardEnityList.isEmpty()){
+      // 조회할 목록 O
+      for (BoardEnity boardEnity : boardEnityList) {
+        BoardDto boardDto =BoardDto.toBoardDtoList(boardEnity);
+        boardDtoList.add(boardDto);
+      }
+    }else{
+      // 조회할 목록 X
+    }
+    for(BoardDto boardDto:boardDtoList){
+      System.out.print("글번호-> " + boardDto.getId());
+      System.out.print(" 제목-> " + boardDto.getTilte());
+      System.out.print(" 내용-> " + boardDto.getContent());
+      System.out.print(" 작성자-> " + boardDto.getWriter());
+      System.out.println(" member_id-> " + boardDto.getMemberEntity().getId());
+    }
+  }
+
+
 
 
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<table border="1">
+  <thead>
+  <tr>
+    <td>id</td>
+    <td>title</td>
+    <td>content</td>
+    <td>writer</td>
+    <td>member_id</td>
+    <td>등록일</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="board : ${boardList}">
+    <td th:text="${board.id}"></td>
+    <td th:text="${board.tilte}"></td>
+    <td th:text="${board.content}"></td>
+    <td th:text="${board.writer}"></td>
+    <td th:text="${board.memberEntity.id}"></td>
+    <td th:text="${board.createTime}"></td>
+  </tr>
+  <tr>
+    <td colspan="6">
+      <form action="/board/serach" method="get">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="검색">
+      </form>
+    </td>
+  </tr>
+  </tbody>
+
+</table>
+
+
+
+</body>
+</html>
